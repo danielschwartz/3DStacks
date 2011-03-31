@@ -1,5 +1,6 @@
 var cradle = require('cradle');
 var db = new(cradle.Connection)().database('blocks');
+var tempArray = [];
 
 var database = {
 	initDb: function(){
@@ -19,7 +20,7 @@ var database = {
 			}
 			if(res == true){
 				console.log("Welcome to 3DStacks!\ndatabase initialized successfully!");
-			}	
+			}
 		});
 	},
 	
@@ -65,8 +66,18 @@ var database = {
 	},
 	
 	getAllBlocks: function(callback){
-		db.view('blocks/all', function (err, res) {
-		    callback(res);
+		db.all(function(err, docs) {
+			for(var i = 0; i < docs.length; i++){
+				if(docs[i].id.indexOf("_design") == -1){
+					tempArray.push(docs[i].id);
+				}
+			};
+
+
+			db.get(tempArray, function(err,docs){
+				//console.log(docs);
+				callback(docs);
+			});
 		});
 		
 	}

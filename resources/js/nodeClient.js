@@ -5,7 +5,7 @@ HB.nodeClient = (function() {
     function handleMessage(data){
         // evil eval
         msg = eval('(' + data + ')');
-		//console.log("Message: " + msg);        
+		//console.log(msg);        
     	switch (msg.type) {
 			case 'new':
     			//console.log("New Player Hass Arrived With SessionID: " + msg.session);
@@ -20,14 +20,15 @@ HB.nodeClient = (function() {
     			},3000);
     			break;
 			case 'new-user-drop':
-				for(block in msg.blocks.rows){
-					curBlock = msg.blocks.rows[block].key;
+				for(block in msg.blocks){
+					curBlock = msg.blocks[block].doc;
 
 					var position = {
 						x: curBlock.x,
 						y: curBlock.y,
 						z: curBlock.z
 					}
+
 					EVT.publish('socketPlacedBlock', [position, curBlock.color]);	
 				}
 				break;

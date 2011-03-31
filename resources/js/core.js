@@ -187,7 +187,7 @@ HB.core = (function() {
 	};
 	
 	function placeBlock(position, color){	
-		//console.log("client placing block", position);
+		console.log("client placing block", position);
 
 		//create a new cube object based on our defaults
 		var block = new THREE.Mesh(new Cube(50,50,50), [new THREE.MeshLambertMaterial({color: color, opacity: 1, shading: THREE.FlatShading}), new THREE.MeshFaceMaterial()]);
@@ -229,9 +229,9 @@ HB.core = (function() {
 			initEventBindings();
 			setInterval(loop, 1000/60);
 			
-			if ('WebSocket' in window) {
-    		    HB.core.initSocketBindings();
-    		}
+			
+    		HB.core.initSocketBindings();
+    		
 
 			HB.core.initClientBindings();
 			

@@ -72,9 +72,9 @@ socket.on('connection', function(client){
     // new client is here!
 	console.log("new client");
 		
-	//console.log(blocks);	
 	Database.getAllBlocks(function(blocks){
-		//console.log(blocks);
+		//console.log(blocks[0]);
+		//console.log("________________________",blocks,"________________________");
 		
 		client.send(JSON.stringify({
 			type      : 'new-user-drop',
